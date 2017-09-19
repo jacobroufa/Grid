@@ -26,10 +26,7 @@ export default {
   components: {
     Cell
   },
-  props: {
-    h: Number,
-    v: Number
-  },
+  props: ['h', 'v'],
   ready() {
     const rect = this.$el.getBoundingClientRect();
 

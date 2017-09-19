@@ -7,15 +7,15 @@
     <label>
       <span v-if="!square">Horizontal: </span>
       <span v-else>Grid Size: </span>
-      <input v-model="size" type="text">
+      <input v-model.number="size" type="text">
     </label>
 
     <label v-if="!square">
       <span>Vertical: </span>
-      <input v-model="vSize" type="text">
+      <input v-model.number="vSize" type="text">
     </label>
 
-    <label>Square Grid? <input v-model="square" type="checkbox"></label>
+    <label>Square Grid? <input v-model.boolean="square" v-on:change="squareGrid" type="checkbox"></label>
 
     <hr>
 
@@ -37,6 +37,13 @@ export default {
       size: 4,
       vSize: 4
     };
+  },
+  methods: {
+    squareGrid(isSquare) {
+      if (isSquare) {
+        this.vSize = this.size;
+      }
+    }
   }
 };
 </script>

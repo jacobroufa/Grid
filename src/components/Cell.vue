@@ -5,11 +5,7 @@
 <script>
 export default {
   name: 'cell',
-  props: {
-    styles: Object,
-    row: Number,
-    col: Number
-  }
+  props: ['styles', 'row', 'col']
 };
 </script>
 

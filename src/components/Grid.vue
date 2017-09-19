@@ -4,7 +4,7 @@
       v-for="row in h">
       <div class="col"
         v-for="col in v">
-        <Cell v-bind:row="row" v-bind:col="col" v-bind:styles="style" />
+        <Cell v-bind:row="row" v-bind:col="col" v-bind:styles="style" v-on:click="cellHover" />
       </div>
     </div>
   </div>
@@ -19,7 +19,8 @@ export default {
     return {
       col: null,
       row: null,
-      offsetHeight: 0
+      offsetHeight: 0,
+      cellColor: 'inherit'
     };
   },
   components: {
@@ -29,20 +30,28 @@ export default {
     h: Number,
     v: Number
   },
+  ready() {
+    const rect = this.$el.getBoundingClientRect();
+
+    this.offsetHeight = rect.top;
+  },
+  methods: {
+    cellHover() {
+      this.cellColor = '#f00';
+    }
+  },
   computed: {
     style() {
+      const aspect = window.innerHeight / window.innerWidth;
       const width = window.innerWidth * (2 / 3);
-      const aspect = window.innerWidth / window.innerHeight;
-      const height = (window.innerHeight - this.offsetHeight) * aspect;
+      const height = ((window.innerHeight * (6 / 7)) - this.offsetHeight) * aspect;
 
       return {
         width: `${Math.ceil(width / this.h)}px`,
-        height: `${Math.ceil(height / this.v)}px`
+        height: `${Math.ceil(height / this.v)}px`,
+        backgroundColor: this.cellColor
       };
     }
-  },
-  ready() {
-    this.offsetHeight = this.$el.offsetHeight;
   }
 };
 </script>
